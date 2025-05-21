@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="p-4">
+    <h2>Mood Over Time</h2>
+    <canvas id="moodChart" width="400" height="200"></canvas>
+    <script>
+        const rawData = {{ data|tojson }};
+        const labels = rawData.map(row => row[0]);
+        const moodValues = rawData.map(row => row[1]);
+
+        const moodMapping = {
+            "Happy": 5,
+            "Neutral": 3,
+            "Sad": 1,
+            "Angry": 2,
+            "Anxious": 2.5
+        };
+
+        const moodNums = moodValues.map(mood => moodMapping[mood] || 0);
+
+        new Chart(document.getElementById('moodChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Mood Level',
+                    data: moodNums,
+                    fill: false,
+                    borderColor: 'blue',
+                    tension: 0.2
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood Tracker</title>
+</head>
+<body>
+    <h1>Mood Tracker</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Mood Entry</button>
+    </form>
+
+    <h2>Past Entries</h2>
+    <ul>
+        {% for entry in entries %}
+            <li>{{ entry.date }} - {{ entry.mood }}: {{ entry.note }}</li>
+        {% empty %}
+            <li>No entries yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
