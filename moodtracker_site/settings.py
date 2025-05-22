@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j*v6i6q&1v!0woj1jo0fn9la%a09(hgz*jl5npcn)-fz+-(6c=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['moodtracker-project.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
