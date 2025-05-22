@@ -1,24 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mood Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mood Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #333;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .list-group-item {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: none;
+      color: #333;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .list-group-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .list-group-item strong {
+      color: #764ba2;
+      font-weight: 600;
+    }
+    button.btn-gradient {
+      background: #764ba2;
+      color: white;
+      font-weight: 600;
+      border: none;
+      transition: background 0.3s ease;
+    }
+    button.btn-gradient:hover {
+      background: #5a3577;
+      color: #fff;
+    }
+    h1, h2 {
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 <body>
-    <h1>Mood Tracker</h1>
+  <div class="container my-5">
+    <h1 class="text-center mb-4 fw-bold">Mood Tracker</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Mood Entry</button>
-    </form>
+    <div class="row justify-content-center">
+      <div class="col-md-6 form-container p-4 rounded shadow-sm">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-gradient w-100 mt-3">Add Mood Entry</button>
+        </form>
+      </div>
+    </div>
 
-    <h2>Past Entries</h2>
-    <ul>
-        {% for entry in entries %}
-            <li>{{ entry.date }} - {{ entry.mood }}: {{ entry.note }}</li>
-        {% empty %}
-            <li>No entries yet.</li>
-        {% endfor %}
+    <h2 class="mt-5 mb-3 text-white">Past Entries</h2>
+    <ul class="list-group">
+      {% for entry in entries %}
+        <li class="list-group-item d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <strong>{{ entry.date }}</strong> - {{ entry.mood }}<br />
+            <small>{{ entry.note }}</small>
+          </div>
+        </li>
+      {% empty %}
+        <li class="list-group-item rounded">No entries yet.</li>
+      {% endfor %}
     </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
